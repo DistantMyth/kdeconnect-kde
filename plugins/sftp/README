@@ -14,3 +14,20 @@ following fields:
   startBrowsing (boolean): tell device to start sftp server and notify desktop
 
 
+Platform notes
+==============
+
+On Linux the remote filesystem is mounted with sshfs and added to Dolphin's
+Places.
+
+On Windows the remote filesystem is mounted to a drive letter (e.g. Z:) using
+SSHFS-Win (https://github.com/winfsp/sshfs-win), which in turn requires WinFsp
+(https://winfsp.dev). The mount is driven by sshfs.exe, located on the PATH.
+
+  * Runtime requirement: install SSHFS-Win (which bundles WinFsp).
+  * The plugin mounts automatically when a paired device becomes reachable and
+    unmounts (releasing the drive letter) when it disconnects.
+  * The "Browse" action opens File Explorer at the drive letter.
+  * A free drive letter is claimed automatically, scanning from Z: down to D:.
+  * If sshfs.exe cannot be found, the mount fails with a user-facing error.
+
